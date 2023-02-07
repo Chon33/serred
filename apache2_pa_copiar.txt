@@ -1,0 +1,58 @@
+# carpetas virtuales
+
+## permite acceso a todo el mundo:
+Alias /documentos "/usr/share/doc/"
+<Directory "/usr/share/doc/">
+	Options Indexes MultiViews FollowSymLinks
+	AllowOverride None
+	Order deny,allow
+	Allow from all
+	Require all granted
+</Directory>
+
+## permite acceso a una ip / red
+Alias /red "/etc/network/"
+<Directory "/etc/network/">
+	Options Indexes MultiViews FollowSymLinks
+	AllowOverride None
+	Order deny,allow
+	Deny from all
+	Allow from 192.168.1.4/255.255.255.255    # <- /255.255.255.255 para una IP de un equipo
+	Allow from 192.168.1.0/255.255.255.0	  # <- /255.255.255.0   para una red con máscara /24 con ip 192.168.1.X
+	Require all granted
+</Directory>
+
+## permite solo a X usuarios   
+Alias /profesor "/home/profesor1/"
+<Directory "/home/profesor1/">
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride AuthConfig
+	AuthType Basic
+	AuthName "Restricted Files"
+	AuthUserFile /etc/apache2/passwd
+	Require user luis jose
+	Order deny,allow
+	Allow from all
+</Directory>
+# /!\ los usuarios hay q crearlos con htpasswd -c /etc/apache2/passwd usuario
+# /!\ el -c solo se pone con el primer usuario, si no te borra todos los anteriores
+
+
+## permite a una IP y a un usuario
+Alias /directoriobin "/usr/bin/"
+<Directory "/usr/bin/">
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride AuthConfig
+	AuthType Basic
+	AuthName "Restricted Files"
+	AuthUserFile /etc/apache2/passwd
+	Require user jose
+	Order deny,allow
+	Deny from all
+	Allow from 192.168.4.100/255.255.255.255    
+</Directory>
+# /!\ los usuarios hay q crearlos con htpasswd -c /etc/apache2/passwd usuario
+# /!\ el -c solo se pone con el primer usuario, si no te borra todos los anteriores
+
+
+## proteger un directorio con contraseña
