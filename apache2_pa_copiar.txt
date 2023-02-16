@@ -56,3 +56,4 @@ Alias /directoriobin "/usr/bin/"
 
 
 ## proteger un directorio con contraseña
+# Creas un usuario y yasta
