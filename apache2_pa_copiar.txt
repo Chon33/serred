@@ -30,7 +30,7 @@ Alias /profesor "/home/profesor1/"
 	AuthType Basic
 	AuthName "Restricted Files"
 	AuthUserFile /etc/apache2/passwd
-	Require user luis jose
+	Require user luis jose       # <- usuarios
 	Order deny,allow
 	Allow from all
 </Directory>
@@ -46,7 +46,7 @@ Alias /directoriobin "/usr/bin/"
 	AuthType Basic
 	AuthName "Restricted Files"
 	AuthUserFile /etc/apache2/passwd
-	Require user jose
+	Require user jose       # <- usuarios
 	Order deny,allow
 	Deny from all
 	Allow from 192.168.4.100/255.255.255.255    
